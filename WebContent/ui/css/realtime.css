@@ -1,0 +1,64 @@
+* {
+    font-family: '微软雅黑';
+
+}
+
+body {
+
+    background: #000000;
+    overflow: hidden;
+}
+
+#bgPanel {
+
+    background: #0B121C;
+}
+
+#titlePanel {
+
+    position: relative;
+    background-image: url('../imgs/TAB_TITLE_BG.jpg');
+
+    font-weight: bold;
+    color: #A0D1FA;
+
+}
+
+#infoPanel {
+
+    text-align: center;
+
+    position: absolute;
+
+}
+
+#chartPanel {
+    position: absolute;
+
+}
+
+.line {
+    background-image: url('../imgs/line.jpg');
+    height: 9px;
+    font-size: 1px;
+
+}
+
+.infoText {
+
+    color: #4CACFF;
+    font-weight: bold;
+
+
+}
+
+.infoValue {
+
+    color: #ffff00;
+    font-weight: bold;
+}
+
+.chart {
+
+}
+

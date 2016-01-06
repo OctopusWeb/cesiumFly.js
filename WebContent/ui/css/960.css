@@ -1,0 +1,83 @@
+*{
+    font-family: '微软雅黑';
+
+}
+
+body {
+    padding: 0px;
+    margin: 2px;
+    background: #000000;
+    overflow: hidden;
+}
+
+#pane {
+
+    padding: 0px;
+    width: 950px;
+    height: 530px;
+    border: 3px ridge #4184D5;
+    background: #0B121C;
+}
+
+#top {
+    height: 35px;
+    position: relative;
+    background-image: url('../imgs/TAB_TITLE_BG.jpg');
+    border-bottom: 3px ridge #4184D5;
+    font-size: 18px;
+    font-weight: bold;
+    color: #A0D1FA;
+    padding-top: 10px;
+    padding-left: 35px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+
+}
+
+#left {
+    width: 240px;
+    text-align: center;
+    left: 3px;
+    top: 50px;
+    position: absolute;
+    height: 480px;
+
+}
+
+#main {
+    position: absolute;
+
+    left: 240px;
+    top: 50px;
+    width: 714px;
+    height: 490px;
+}
+
+.line {
+    background-image: url('../imgs/line.jpg');
+    width: 230px;
+    height: 9px;
+    font-size: 1px;
+    margin: 5px;
+}
+
+.infoText {
+    font-size: 14px;
+    color: #4CACFF;
+    font-weight: bold;
+    padding-top: 12px;
+    padding-bottom: 10px;
+
+}
+
+.infoValue {
+    font-size: 23px;
+    color: #ffff00;
+    font-weight: bold;
+}
+
+.chart {
+
+    height: 242px;
+}
+

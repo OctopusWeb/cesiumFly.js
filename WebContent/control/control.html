@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>控制端</title>
+		<script type="text/javascript" src="controlImg/jquery-1.9.1.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$(".controlBig").eq(0).show();
+				$(".control").eq(1).hide();
+				var open1=null;
+				var openId=new Array();
+				openId=["mTm32eTHv7tloluu0e70RL7fa31NaD9h","RWPoxXsPRTBSoGS5S1BgUTEUMpwNnonP",
+				"OxwgSfu4UvVm87SZyx88R2tae9pG5JVP","miCFyFKTBjyh5q7xxH4Idb64kiYg9vcU","cQp1huRQOhkiFMCCByWcoyMFiGVKIg9B"];
+				
+				$(".blackLi").click(function(){
+					var index=$(this).index(".blackLi");
+					blackClick(index);
+				})
+				
+				$(".screenbtn").click(function(){
+					var index=$(this).index(".screenbtn");
+					$(".screenbtn").find(".screenbtnL").css({"background":"none"});
+					$(".screenbtn").eq(index).find(".screenbtnL").css({"background":"#e3610e"});
+					$(".contentbtnL").css({"background":"none"})
+					earth(index);
+				})
+				
+				$("#search").click(function(){
+					var index=$(".blackLi:hidden").index(".blackLi");
+					search(index);
+				})
+				
+				$(".controlbtn").click(function(){
+					var index=$(this).index(".contentName .controlbtn");
+					$(this).find(".contentbtnL").css({"background":"#e3610e"});
+					if(index<=2){
+						index=index;
+					}else if(index>2&&5>=index){
+						index=index-3;
+					}else if(index>5&&9>=index){
+						index=index-6;
+					}else if(index>9&&11>=index){
+						index=index-10;
+					}else if(index>11&&14>=index){
+						index=index-12;
+					}
+					var command = {"Service":"multiScreenCall","Action":"invoke","HostId":"OxwgSfu4UvVm87SZyx88R2tae9pG5JVP","Arguments":{"chang":index}};
+					$vc.send({"Type":"custom","HostId":"OxwgSfu4UvVm87SZyx88R2tae9pG5JVP","Command":command});
+				})
+
+				
+				function earth(index){
+					var num=parseInt(index)-2;
+					if(index>=0&&index<=7){
+						$(".controlBig").hide();
+						$(".controlBig").eq(num).show();
+						var command = {"Service":"multiScreenCall","Action":"invoke","HostId":"OxwgSfu4UvVm87SZyx88R2tae9pG5JVP","Arguments":{"showFlash":num}};
+						$vc.send({"Type":"custom","HostId":"OxwgSfu4UvVm87SZyx88R2tae9pG5JVP","Command":command});
+					}	
+				}
+				
+				function blackClick(index){
+					$(".control input").val("");
+					$(".contentbtnL").css({"background":"none"})
+					$(".screen").find(".blackLi,h2").show();
+					$(".screen").find(".Button,.backed").hide();
+					$(".screen").eq(index).find(".blackLi,h2").hide();
+					$(".screen").eq(index).find(".Button,.backed").show();
+					if(index==2){
+						$(".control").eq(1).show();
+						$(".control").eq(0).hide();
+					}else{
+						$(".control").eq(0).show();
+						$(".control").eq(1).hide();
+					}
+				}
+				
+				function search(open){
+					var open=openId[open];
+					var city=$(".control input").val();
+					var command = {"Service":"multiScreenCall","Action":"invoke","HostId":open,"Arguments":{"city":city}};
+					$vc.send({"Type":"custom","HostId":open,"Command":command});
+				}
+			})
+		</script>
+		<style>
+		*{padding: 0;margin: 0;}
+		body{height: 100%;width: 100%;background: #000;overflow: hidden;}
+		
+		#screenAll{width: 100%;height: 50%;position: relative;float: left;}
+		.screenSmall{float: left;width: 25%;height: auto;}
+		#screenBig{width: 50%;height: auto;float: left;position: relative;}
+		#screenBig img{width: 100%;height: auto;}
+		.screenSmall li{width:100%;height:auto;float: left;list-style: none;position: relative;}
+		.screenSmall li img{width: 100%;height: auto;}
+		.blackLi{width: 100%;height: 100%;position: absolute;background: #000;opacity: 0.5;}
+		.screenSmall li h2{position:absolute;width: 40px;height: 40px;border: 2px solid #fff;margin:25% 50%;left:-20px;top:-20px;border-radius: 20px;font-size: 14px;color: #fff;text-align: center;line-height: 40px;z-index: 100;}
+		.blackLi{width: 100%;height: 100%;position: absolute;background: #000;opacity: 0.5;}
+		#screenBig h2{position:absolute;width: 40px;height: 40px;border: 2px solid #fff;margin:25% 50%;left:-20px;top:-20px;border-radius: 20px;font-size: 14px;color: #fff;text-align: center;line-height: 40px;z-index: 100;}
+		#screen1{width: 100%;float: left;height: 50px;background:#000}
+		.backed{width: 100%;height: 15%;background: #000;position: absolute;bottom: 0;display: none;opacity: 0.5;}
+		.Button{width: 100%;height: 15%;position: absolute;bottom: 0;display: none;left: 10%;}
+		.Button .screenbtn{width: 30%;float: left;margin-left: 1%;margin-top: 1%;}
+		.screenbtnL{width: 6px;height: 6px;border: 2px solid #fff;border-radius: 7px;background: none;float: left;margin-top: 4px;}
+		.screenbtn p{color: #fff;font-size: 12px;float: left; margin-left: 6px;}
+		.screenSmall li .Button .screenbtn{width: 100%;}
+		.screenbtn{cursor: pointer;}
+		
+		#controlAll{width: 100%;height: 50px;background: #0a2b5e;position: relative;float: left;border: 2px solid #83aed6;}
+		.control{width: 80%;float: left;margin-left: 20%;}
+		.control p{float: left;line-height: 50px;font-size: 14px;color: #fff;margin-left: 6px;}
+		.control input{width: 150px;height: 14px;margin-top: 15px;margin-left: 30px;float: left;}
+		#search{width: 60px; height: 20px;background: #83aed6;float: left; margin-top: 15px;margin-left: 30px;cursor: pointer;}
+		#search p{color: #fff;float: left;font-size: 12px;line-height: 20px; text-align: center;width: 50px;}
+		.control .controlbtn{width: 15%;float: left;cursor: pointer;text-align: center;}
+		.control span{width: 20%;float: left;color: #fff;font-size: 14px;line-height: 50px;}
+		.contentbtnL{width: 6px;height: 6px;border: 2px solid #fff;border-radius: 7px;background: none;float: left;margin-top: 19px;}
+		.controlBig{display: none;}
+	</style>
+	</head>
+	<body>
+		<div id="screenAll">
+			<ul class="screenSmall">
+				
+				<li class="screen">
+					<div class="backed"></div>
+					<div class="Button">
+						<div class="screenbtn">
+							<div class="screenbtnL"></div>
+							<p>机场航班状态</p>
+						</div>
+					</div>
+					<h2>选择</h2>
+					<div class="blackLi"></div>
+					<img src="controlImg/1.png" alt="屏幕一" />
+				</li>
+				
+				<li class="screen">
+					<div class="backed"></div>
+					<div class="Button">
+						<div class="screenbtn">
+							<div class="screenbtnL"></div>
+							<p>机场航班状态</p>
+						</div>
+					</div>
+					<h2>选择</h2>
+					<div class="blackLi"></div>
+					<img src="controlImg/1.png" alt="屏幕二" />
+				</li>
+				
+			</ul>
+			<div id="screenBig" class="screen">
+				
+				<div class="backed"></div>
+				<div class="Button">
+					<div class="screenbtn">
+						<div class="screenbtnL"></div>
+						<p>机场</p>
+					</div>
+					<div class="screenbtn">
+						<div class="screenbtnL"></div>
+						<p>航路</p>
+					</div>
+					<div class="screenbtn">
+						<div class="screenbtnL"></div>
+						<p>设备</p>
+					</div>
+					<div class="screenbtn">
+						<div class="screenbtnL"></div>
+						<p>管制区</p>
+					</div>
+					<div class="screenbtn">
+						<div class="screenbtnL"></div>
+						<p>地理</p>
+					</div>
+					<div class="screenbtn">
+						<div class="screenbtnL"></div>
+						<p>重置</p>
+					</div>
+				</div>
+				<h2>选择</h2>
+				<div class="blackLi"></div>
+				<img src="controlImg/1.png" alt="屏幕三" />
+				
+			</div>
+			
+			<ul class="screenSmall">
+				
+				<li class="screen">
+					<div class="backed"></div>
+					<div class="Button">
+						<div class="screenbtn">
+							<div class="screenbtnL"></div>
+							<p>机场航班状态</p>
+						</div>
+					</div>
+					<h2>选择</h2>
+					<div class="blackLi"></div>
+					<img src="controlImg/1.png" alt="屏幕四" />
+				</li>
+				
+				<li class="screen">
+					<div class="backed"></div>
+					<div class="Button">
+						<div class="screenbtn">
+							<div class="screenbtnL"></div>
+							<p>机场航班状态</p>
+						</div>
+					</div>
+					<h2>选择</h2>
+					<div class="blackLi"></div>
+					<img src="controlImg/1.png" alt="屏幕五" />
+				</li>
+				
+			</ul>
+		</div>
+		
+			<div id="controlAll">
+				<div class="control">
+					<p>机场/航空公司名称</p><input type="text" /><div id="search"><p>搜索</p></div>
+				</div>
+				<div class="control">
+					<div class="controlBig">
+						<div class="contentName">
+							<span>机场分类显示:</span>
+							<div class="controlbtn">
+								<div class="contentbtnL"></div>
+								<p>机场1</p>
+							</div>
+							<div class="controlbtn">
+								<div class="contentbtnL"></div>
+								<p>机场2</p>
+							</div>
+							<div class="controlbtn">
+								<div class="contentbtnL"></div>
+								<p>机场3</p>
+							</div>
+						</div>
+					</div>
+					<div class="controlBig">
+						<div class="contentName">
+							<span>航路分类显示:</span>
+						<div class="controlbtn">
+							<div class="contentbtnL"></div>
+								<p>航路1</p>
+							</div>
+							<div class="controlbtn">
+								<div class="contentbtnL"></div>
+								<p>航路2</p>
+							</div>
+							<div class="controlbtn">
+								<div class="contentbtnL"></div>
+								<p>航路3</p>
+							</div>
+						</div>
+					</div>
+					<div class="controlBig">
+						<div class="contentName">
+							<span>设备分类显示:</span>
+							<div class="controlbtn">
+							<div class="contentbtnL"></div>
+								<p>设备1</p>
+							</div>
+							<div class="controlbtn">
+								<div class="contentbtnL"></div>
+								<p>设备2</p>
+							</div>
+							<div class="controlbtn">
+								<div class="contentbtnL"></div>
+								<p>设备3</p>
+							</div>
+							<div class="controlbtn">
+								<div class="contentbtnL"></div>
+								<p>设备4</p>
+							</div>
+						</div>
+					</div>
+					<div class="controlBig">
+						<div class="contentName">
+							<span>管制区分类显示:</span>
+						<div class="controlbtn">
+							<div class="contentbtnL"></div>
+								<p>管制区1</p>
+							</div>
+							<div class="controlbtn">
+								<div class="contentbtnL"></div>
+								<p>管制区2</p>
+							</div>
+						</div>
+					</div>
+					<div class="controlBig">
+						<div class="contentName">
+							<span>天气分类显示:</span>
+						<div class="controlbtn">
+							<div class="contentbtnL"></div>
+								<p>天气1</p>
+							</div>
+							<div class="controlbtn">
+								<div class="contentbtnL"></div>
+								<p>天气2</p>
+							</div>
+							<div class="controlbtn">
+								<div class="contentbtnL"></div>
+								<p>天气3</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+</html>
